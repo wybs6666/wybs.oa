@@ -1,0 +1,286 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+	<div class="page-content">
+		<!--主题-->
+		<div class="page-header">
+			<h1>
+				您当前操作
+				<small>
+					<i class="ace-icon fa fa-angle-double-right"></i>
+					修改项目
+				</small>
+			</h1>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-horizontal ajaxForm2" name="form0" method="post" action="{:url('admin/Customer/customer_runedit')}"  enctype="multipart/form-data">
+
+					<input type="hidden" name="n_id" id="n_id" value="{$customer_list.n_id}" />
+					<!--项目名称-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 项目名称：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="customer_title" id="customer_title"  value="{$customer_list.customer_title}"   class="col-xs-10 col-sm-6" required/>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--项目名称-->
+
+					<!--项目编号-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 项目编号：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="contract_number" id="contract_number"  value="{$customer_list.contract_number}"   class="col-xs-10 col-sm-6" required/>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--项目编号-->
+
+					<!--公司名    下拉样式-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司名：</label>
+						<div class="col-sm-8">
+							<select name="company_id"  class="col-sm-3 " required>
+								<option value="">请选择公司名字</option>
+								{foreach name="company_info" item="vo"}
+								<option value="{$vo.company_id}"  {if condition="$vo.company_id eq $customer_list['company_id']"} selected {/if} >{$vo.company_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--公司名    下拉样式-->
+
+					<!--服务项目    下拉样式-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 服务项目：</label>
+						<div class="col-sm-8">
+							<select name="customer_service_items"  class="col-sm-3 " required>
+								<option value="">请选择服务项目</option>
+								{foreach name="customer_service_items" item="vo"}
+								<option value="{$vo.service_items_id}"  {if condition="$vo.service_items_id eq $customer_list['customer_service_items']"} selected {/if} >{$vo.service_items_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--服务项目    下拉样式-->
+
+					<!--对接人    下拉样式-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 商务对接人：</label>
+						<div class="col-sm-8">
+							<select name="customer_waiter_1"  class="col-sm-3 " required>
+								<option value="">请选择对接人</option>
+								{foreach name="customer_waiter_1" item="vo"}
+								<option value="{$vo.customer_waiter_id}"  {if condition="$vo.customer_waiter_id eq $customer_list['customer_waiter_1']"} selected {/if} >{$vo.customer_waiter_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--对接人    下拉样式-->
+
+					<!--对接人    下拉样式-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 技术对接人：</label>
+						<div class="col-sm-8">
+							<select name="customer_waiter_2"  class="col-sm-3 " required>
+								<option value="">请选择对接人</option>
+								{foreach name="customer_waiter_2" item="vo"}
+								<option value="{$vo.customer_waiter_id}"  {if condition="$vo.customer_waiter_id eq $customer_list['customer_waiter_2']"} selected {/if} >{$vo.customer_waiter_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--对接人    下拉样式-->
+
+
+					<!--项目状态    下拉样式-->
+					<div class="form-group" >
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 选择项目状态：</label>
+						<div class="col-sm-8">
+							<select name="customer_status" id="is_cooperation"  class="col-sm-3 ">
+								<option value="">请选择项目状态</option>
+								{foreach name="customer_status" item="vo"}
+								<option value="{$vo.customer_status_id}"  {if condition="$vo.customer_status_id eq $customer_list['customer_status']"} selected {/if} >{$vo.customer_status_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--项目状态    下拉样式-->
+
+
+					<!--项目状态    下拉样式-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 选择项目状态：</label>-->
+						<!--<div class="col-sm-8">-->
+							<!--<input type="text" name="customer_status" value="正在合作" readonly>-->
+							<!--<span class="lbl span_word" style="color: #008855;">项目状态暂不支持直接取消“合作”状态</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--项目状态    下拉样式-->
+
+					<!--&lt;!&ndash;回款周期    下拉样式&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 选择回款周期：</label>-->
+						<!--<div class="col-sm-8">-->
+							<!--<select name="customer_collection_period"  class="col-sm-3 " id="customer_collection_period_id" required>-->
+								<!--<option value="">请选择回款周期</option>-->
+								<!--{foreach name="customer_collection_period" item="vo"}-->
+								<!--<option value="{$vo.collection_period_id}"  {if condition="$vo.collection_period_id eq $customer_list['customer_collection_period']"} selected {/if} >{$vo.collection_period_name} </option>-->
+								<!--{/foreach}-->
+							<!--</select>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;回款周期    下拉样式&ndash;&gt;-->
+
+					<!--&lt;!&ndash;回款类型    下拉样式&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 选择回款类型：</label>-->
+						<!--<div class="col-sm-8">-->
+							<!--<select name="customer_payment_type_id"  class="col-sm-3 " id="customer_payment_type_id" required>-->
+								<!--<option value="99">请选择回款类型</option>-->
+								<!--{foreach name="customer_payment_type" item="vo"}-->
+								<!--<option value="{$vo.customer_payment_type_id}"  {if condition="$vo.customer_payment_type_id eq $customer_list['customer_payment_type']"} selected {/if} >{$vo.customer_payment_type_name} </option>-->
+								<!--{/foreach}-->
+							<!--</select>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;回款类型    下拉样式&ndash;&gt;-->
+
+
+					<!--&lt;!&ndash;合同周期    下拉样式&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 选择合同周期：</label>-->
+						<!--<div class="col-sm-8">-->
+							<!--<select name="customer_contract_cycle_id"  class="col-sm-3 " id="customer_contract_cycle_id">-->
+								<!--<option value="">请选择合同周期</option>-->
+								<!--{foreach name="customer_contract_cycle" item="vo"}-->
+								<!--<option value="{$vo.customer_contract_cycle_id}"  {if condition="$vo.customer_contract_cycle_id eq $customer_list['customer_contract_cycle']"} selected {/if} >{$vo.customer_contract_cycle_name} </option>-->
+								<!--{/foreach}-->
+							<!--</select>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;合同周期    下拉样式&ndash;&gt;-->
+
+
+					<!--&lt;!&ndash;签约金额&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 签约金额：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<input type="number" name="customer_cpprice" id="customer_cpprice"  value="{$customer_list.customer_cpprice}"   placeholder="输入签约金额" class="col-xs-10 col-sm-6" />-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;签约金额&ndash;&gt;-->
+
+
+
+					<!--&lt;!&ndash;签约日期&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 签约时间：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<input name="customer_contract_time" class="date-picker col-xs-10 col-sm-2" value="{$customer_list.customer_contract_time|date='Y-m-d',###}" type="text" data-date-format="yyyy-mm-dd">-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;签约日期&ndash;&gt;-->
+
+					<!--&lt;!&ndash;执行日期&ndash;&gt;-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 执行时间：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<input id="customer_execution_time" name="customer_execution_time" class="date-picker col-xs-10 col-sm-2" value="{$customer_list.customer_execution_time|date='Y-m-d',###}" type="text" data-date-format="yyyy-mm-dd">-->
+							<!--&nbsp;&nbsp;&nbsp;&nbsp;-->
+							<!--&lt;!&ndash; 点击添加模态框（Modal） &ndash;&gt;-->
+							<!--<button class="btn btn-sm customer_expiration_date_edit" data-toggle="modal" data-target="#myModal" style="float: none;">-->
+								<!--<i class="ace-icon fa fa-bolt bigger-110"></i>-->
+								<!--合成到期时间-->
+							<!--</button>-->
+							<!--&lt;!&ndash; 点击添加模态框（Modal） &ndash;&gt;-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;执行日期&ndash;&gt;-->
+
+					<!--&lt;!&ndash;到期时间&ndash;&gt;-->
+					<!--<div class="form-group" id="customer_expiration_date_come" style="display: none;">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 到期时间：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<input id="customer_expiration_date" name="customer_expiration_date" class="col-xs-10 col-sm-2" value="{$customer_list.customer_expiration_date|date='Y-m-d',###}" type="text" data-date-format="yyyy-mm-dd">-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+					<!--&lt;!&ndash;到期时间&ndash;&gt;-->
+
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 显示日期：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<input name="showdate" class="date-picker col-xs-10 col-sm-6" value="{$customer_extra['showdate']|date='Y-m-d',###}" type="text" data-date-format="yyyy-mm-dd">-->
+							<!--<span class="lbl">&nbsp;&nbsp;默认为项目添加日期</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+
+					<!--结算方式说明-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 结算方式说明：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="statement_of_settlement" id="statement_of_settlement"  value="{$customer_list.statement_of_settlement}"   class="col-xs-10 col-sm-6" required/>
+							<span class="lbl span_word" style="color: #008855;">&nbsp;&nbsp;请输入结算方式说明<br /></span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--结算方式说明-->
+
+
+					<!--<div class="form-group">-->
+						<!--<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 项目简介：  </label>-->
+						<!--<div class="col-sm-10">-->
+							<!--<script src="__PUBLIC__/ueditor/ueditor.config.js" type="text/javascript"></script>-->
+							<!--<script src="__PUBLIC__/ueditor/ueditor.all.js" type="text/javascript"></script>-->
+							<!--<textarea name="customer_content" rows="100%" style="width:80%;min-height: 400px;" id="myEditor">{$customer_list.customer_content}</textarea>-->
+							<!--<script type="text/javascript">-->
+								<!--var editor = new UE.ui.Editor();-->
+								<!--editor.render("myEditor");-->
+							<!--</script>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="space-4"></div>-->
+
+					<div class="clearfix form-actions">
+						<div class="col-md-offset-3 col-md-9">
+							<button class="btn btn-info" type="submit">
+								<i class="ace-icon fa fa-check bigger-110"></i>
+								保存
+							</button>
+
+							&nbsp; &nbsp; &nbsp;
+							<button class="btn" type="reset">
+								<i class="ace-icon fa fa-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</div>	
+			</form>
+		</div>
+	</div>
+{/block}
+{block name="scripts"}
+	<script>
+		$('.date-picker').datepicker({
+			autoclose: true,
+			todayHighlight: true,
+		})
+
+	</script>
+{/block}

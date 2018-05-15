@@ -1,0 +1,142 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+	<div class="page-content">
+
+
+
+		<!--主题-->
+		<div class="page-header">
+			<h1>
+				您当前操作
+				<small>
+					<i class="ace-icon fa fa-angle-double-right"></i>
+					修改公司信息
+				</small>
+			</h1>
+		</div>
+
+
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-horizontal companyform" name="company_list_edit" method="post" action="{:url('admin/Company/company_runedit')}">
+					<input name="company_id" id="company_id" type="hidden" value="{$company_list.company_id}" />
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司名：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="company_name" id="company_name"  value="{$company_list.company_name}"  class="col-xs-10 col-sm-5" required/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>请修改公司名</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司官网：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="official_website" id="official_website"  value="{$company_list.official_website}"  class="col-xs-10 col-sm-5" />
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>请修改公司网址：如 （http://www.slanmedia.com/）</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司编号：</label>
+						<div class="col-sm-10">
+							<input type="text" name="company_number" id="company_number" value="{$company_list.company_number}" class="col-xs-10 col-sm-5" required/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>公司唯一标识</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<!--项目名    下拉样式-->
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 所属行业：</label>
+						<div class="col-sm-8">
+							<select name="industry_category"  class="col-sm-3 " required>
+								<option value="">请选择行业</option>
+								{foreach name="industry_category" item="vo"}
+								<option value="{$vo.industry_category_id}"
+										{if condition="$vo.industry_category_id eq $company_list['industry_category']"} selected {/if}
+										>{$vo.industry_category_name} </option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="space-4"></div>
+					<!--项目名    下拉样式-->
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司别名：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="company_alias" id="company_alias"  value="{$company_list.company_alias}"  class="col-xs-10 col-sm-5"/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司地址：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="company_address" id="company_address"  value="{$company_list.company_address}"  class="col-xs-10 col-sm-5" />
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司法人：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="company_legal_person" id="company_legal_person"  value="{$company_list.company_legal_person}"  class="col-xs-10 col-sm-5"/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司电话：  </label>
+						<div class="col-sm-10">
+							<input type="text" name="company_phone" id="company_phone"  value="{$company_list.company_phone}"  class="col-xs-10 col-sm-5"/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司邮箱：  </label>
+						<div class="col-sm-10">
+							<input type="email" name="company_mail" id="company_mail"  value="{$company_list.company_mail}"  class="col-xs-10 col-sm-5"/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 公司手机号：  </label>
+						<div class="col-sm-10">
+							<input type="number" name="company_mobile" id="company_mobile"  value="{$company_list.company_mobile}"  class="col-xs-10 col-sm-5"/>
+							<span class="lbl col-xs-12 col-sm-7"><span class="red">*</span>非必填项</span>
+						</div>
+					</div>
+					<div class="space-4"></div>
+
+					<div class="clearfix form-actions">
+						<div class="col-md-offset-3 col-md-9">
+							<button class="btn btn-info" type="submit">
+								<i class="ace-icon fa fa-check bigger-110"></i>
+								保存
+							</button>
+
+							&nbsp; &nbsp; &nbsp;
+							<button class="btn" type="reset">
+								<i class="ace-icon fa fa-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div><!-- /.page-content -->
+{/block}

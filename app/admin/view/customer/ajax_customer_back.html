@@ -1,0 +1,75 @@
+{foreach name="customer" item="v"}
+	<tr>
+		<td class="hidden-xs" align="center">
+			<label class="pos-rel">
+				<input name='n_id[]' id="navid" class="ace"  type='checkbox' value='{$v.n_id}'>
+				<span class="lbl"></span>
+			</label>
+		</td>
+
+		<!--ID号-->
+		<td class="hidden-xs" align="center">{$v.n_id}</td>
+		<!--ID号-->
+
+		<!--代表图-->
+		<td align="center"><img src="{$v.customer_img}" height="50px;"></td>
+		<!--代表图-->
+
+		<!--项目名-->
+		<td>
+			{$v.customer_title|subtext=25}
+		</td>
+		<!--项目名-->
+
+
+		<!--项目状态-->
+		<td class="hidden-xs" align="center">{$customer_status_need[$v.customer_status]}</td>
+		<!--项目状态-->
+
+		<!--回款周期-->
+		<td class="hidden-xs" align="center">
+			{if condition="$v.customer_collection_period eq 12"} 无效 {else/}{$customer_collection_period_need[$v.customer_collection_period]}{/if}
+		</td>
+		<!--回款周期-->
+
+		<!--创建时间-->
+		<td class="hidden-xs">{$v.customer_time|date='Y-m-d',###}</td>
+		<!--创建时间-->
+
+		<td>
+			<div class="action-buttons">
+				<a class="red confirm-rst-url-btn" data-info="你确定要还原项目到项目列表吗？" href="{:url('admin/customer/customer_back_open',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" title="还原">
+					<i class="ace-icon fa fa-check bigger-130"></i>																</a>
+				<a style="display:none;" class="red confirm-rst-url-btn" data-info="你确定要彻底删除项目吗？" href="{:url('admin/customer/customer_back_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" title="删除">
+					<i class="ace-icon fa fa-close bigger-130"></i>																</a>												</div>
+			<div class="hidden-md hidden-lg hidden-sm hidden-xs">
+				<div class="inline position-relative">
+					<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+						<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+					</button>
+					<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+						<li>
+							<a href="{:url('admin/customer/customer_back_open',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" class="tooltip-success confirm-rst-url-btn" data-info="你确定要还原项目到项目列表吗？" data-rel="tooltip" title="" data-original-title="还原">
+											<span class="green">
+												<i class="ace-icon fa fa-check bigger-120"></i>
+											</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="{:url('admin/customer/customer_back_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}"  class="tooltip-error confirm-rst-url-btn" data-info="你确定要彻底删除项目吗？" data-rel="tooltip" title="" data-original-title="删除">
+											<span class="red">
+												<i class="ace-icon fa fa-close bigger-120"></i>
+											</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</td>
+	</tr>
+{/foreach}
+<tr>
+	<td align="left"><button id="btnsubmit" class="btn btn-white btn-yellow btn-sm">删</button> </td>
+	<td colspan="11" align="right">{$page}</td>
+</tr>

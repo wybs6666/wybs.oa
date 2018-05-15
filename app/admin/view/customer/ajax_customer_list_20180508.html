@@ -1,0 +1,512 @@
+{foreach name="customer" item="v"}
+<tr>
+	<!--序号  start-->
+	<td style="text-align: center;">{$v.n_id}
+		{if condition="$v.customer_status eq 6"}
+		<a href="#" class="green bigger-140 show-details-btn" title="Show Details">
+			<i class="ace-icon fa fa-angle-double-down"></i>
+			<span class="sr-only">Details</span>
+		</a>
+		{else/}
+		
+		{/if}
+	</td>
+	<!--序号  end-->
+
+	<!--多选框-->
+	<td class="hidden-xs" align="center" style="display: none;">
+		<label class="pos-rel">
+			<input name='n_id[]' id="navid" class="ace"  type='checkbox' value='{$v.n_id}'>
+			<span class="lbl"></span>
+		</label>
+	</td>
+	<!--多选框-->
+
+	<!--公司名  start-->
+	<td class="hidden-xs hidden-sm" align="center" style="display: none;">
+		<select name="customer_company1_name1" class="ajax_change_customer_company1_name1">
+			{foreach name="company_info" item="vv"}
+			<option value="{$vv.company_id}" class="bgc" {if condition="$v.company_id eq $vv.company_id"}selected{/if}>
+			{$vv.company_name}
+			</option>
+			{/foreach}
+		</select>
+
+		<span class="action none">
+			<a href="{:url('admin/Customer/customer_company1_name1')}" class="green change-name1" data-name1="{$v.company_id}" data-id="{$v.n_id}" title="确认">
+				<i class="ace-icon fa fa-check bigger-130"></i>
+			</a>
+			<a href="javascript:void(0);" class="red cancel-change-name1" data-name1="{$v.company_id}" title="取消">
+				<i class="ace-icon fa fa-close bigger-130"></i>
+			</a>
+		</span>
+
+		<a class="back_paymentedit-btn4" href="{:url('admin/Company/company_detail')}" data-id="{$v.company_id}"   data-toggle="tooltip" title="公司详情">
+				<span class="green">
+					<i class="ace-icon fa fa-cog bigger-120"></i>
+				</span>
+		</a>
+		<a class="back_paymentedit-btn2" href="{:url('admin/Company/company_back_payment_detail')}" data-id="{$v.company_id}" data-toggle="tooltip" title="公司回款详情">
+				<span class="blue">
+					<i class="ace-icon fa fa-file bigger-120"></i>
+				</span>
+		</a>
+	</td>
+	<!--公司名  end-->
+
+	<!--公司名  start-->
+	<td class="hidden-xs" align="center">
+		{if condition = "$v.official_website neq null"}
+		<a href="{$v.official_website}" title="{$v.official_website}" target="_blank">{$v.company_info}</a>
+
+		{else/}
+		{$v.company_info}
+		<br>
+		<span style="color: blue;">公司网址未录入!</span>
+		{/if}
+	</td>
+	<!--公司名  end-->
+
+	<!--合同编号-->
+	<td class="hidden-xs" align="center">{$v.contract_number}</td>
+	<!--合同编号-->
+
+	<!--项目名-->
+	<td style="text-align: center;">
+		{$v.customer_title|subtext=25}
+	</td>
+	<!--项目名-->
+
+	<td class="hidden-sm hidden-xs" style="text-align: center;display: none;">
+		{if condition="$v['customer_open'] eq 1"}
+		<a class="red display-btn2" href="{:url('admin/customer/customer_state')}" data-id="{$v.n_id}-{$v.company_id}" title="已开启">
+			<div>
+				<button class="btn btn-minier btn-yellow">审核通过</button>
+			</div>
+		</a>
+		{else/}
+		<a class="red display-btn2" href="{:url('admin/customer/customer_state')}" data-id="{$v.n_id}-{$v.company_id}" title="已禁用">
+			<div>
+				<button class="btn btn-minier btn-danger">审核中</button>
+			</div>
+		</a>
+		{/if}
+	</td>
+
+	<!--服务项目  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_service_items" class="ajax_change_customer_service_items">
+			{foreach name="customer_service_items" item="vv"}
+			<option value="{$vv.service_items_id}" class="bgc" {if condition="$v.customer_service_items eq $vv.service_items_id"}selected{/if}>
+			{$vv.service_items_name}
+			</option>
+			{/foreach}
+		</select>
+
+    		<span class="action none">
+    			<a href="{:url('admin/Customer/customer_service_items')}" class="green change-items" data-items="{$v.customer_service_items}" data-id="{$v.n_id}" title="确认">
+					<i class="ace-icon fa fa-check bigger-130"></i>
+				</a>
+    			<a href="javascript:void(0);" class="red cancel-change-items" data-items="{$v.customer_service_items}" title="取消">
+					<i class="ace-icon fa fa-close bigger-130"></i>
+				</a>
+    		</span>
+	</td>
+	<!--服务项目  end-->
+
+	<!--期数-->
+	<td class="hidden-xs" align="center" style="display: none;">
+		{if condition = "$v.total_number_of_periods"}
+		{$v.total_number_of_periods}
+		{else/}
+		/
+		{/if}
+	</td>
+	<!--期数-->
+
+	<td class="hidden-xs" align="center">
+		{if condition="$v.amount_of_money"}
+		{$v.amount_of_money}
+		{else/}
+		/
+		{/if}
+	</td>
+
+	<td class="hidden-xs" align="center">
+		{if condition="$v.amount_of_money"}
+			{if condition = "$v.actual_amount_of_money"}
+			已回款{$v.actual_amount_of_money}元
+			{else/}
+			<span style="color: red;">未回款</span>
+			{/if}
+		{else/}
+		<span style="color: #000088;">无应回款</span>
+		{/if}
+	</td>
+
+	<!--账户  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="acount" class="ajax_change_customer_acount1_doing1">
+			<option value="3" class="bgc" {if condition="$v.account eq 3"}selected{/if}>暂没定义</option>
+			<option value="1" class="bgc" {if condition="$v.account eq 1"}selected{/if}>多蓝</option>
+			<option value="2" class="bgc" {if condition="$v.account eq 2"}selected{/if}>数蓝</option>
+		</select>
+
+		<span class="action none">
+			<a href="{:url('admin/Customer/customer_acount1_doing1')}" class="green change-doing1" data-doing1="{$v.account}" data-id="{$v.n_id}" title="确认">
+				<i class="ace-icon fa fa-check bigger-130"></i>
+			</a>
+			<a href="javascript:void(0);" class="red cancel-change-doing1" data-doing1="{$v.account}" title="取消">
+				<i class="ace-icon fa fa-close bigger-130"></i>
+			</a>
+		</span>
+	</td>
+	<!--账户  end-->
+
+	<!--信用等级  start-->
+	<td class="hidden-xs hidden-sm" align="center" style="display: none;">
+		<select name="customer_credit_rating" class="ajax_change_customer_credit_rating">
+			{foreach name="customer_credit_rating" item="vv"}
+			<option value="{$vv.credit_rating_id}" class="bgc" {if condition="$v.customer_credit_rating eq $vv.credit_rating_id"}selected{/if}>
+			{$vv.credit_rating_name}
+			</option>
+			{/foreach}
+		</select>
+
+    		<span class="action none">
+    			<a href="{:url('admin/Customer/customer_credit_rating')}" class="green change-rating" data-rating="{$v.customer_credit_rating}" data-id="{$v.n_id}" title="确认">
+					<i class="ace-icon fa fa-check bigger-130"></i>
+				</a>
+    			<a href="javascript:void(0);" class="red cancel-change-rating" data-rating="{$v.customer_credit_rating}" title="取消">
+					<i class="ace-icon fa fa-close bigger-130"></i>
+				</a>
+    		</span>
+	</td>
+	<!--信用等级  end-->
+
+	<!--商务技术人员  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_waiter_1" class="ajax_change_customer_waiter_1">
+			{foreach name="customer_waiter_1" item="vv"}
+			<option value="{$vv.customer_waiter_id}" class="bgc" {if condition="$v.customer_waiter_1 eq $vv.customer_waiter_id"}selected{/if}>
+			{$vv.customer_waiter_name}
+			</option>
+			{/foreach}
+		</select>
+
+    		<span class="action none">
+    			<a href="{:url('admin/Customer/customer_waiter_1')}" class="green change-waiter_1" data-waiter_1="{$v.customer_waiter_1}" data-id="{$v.n_id}" title="确认">
+					<i class="ace-icon fa fa-check bigger-130"></i>
+				</a>
+    			<a href="javascript:void(0);" class="red cancel-change-waiter_1" data-waiter_1="{$v.customer_waiter_1}" title="取消">
+					<i class="ace-icon fa fa-close bigger-130"></i>
+				</a>
+    		</span>
+	</td>
+	<!--商务技术人员  end-->
+
+
+	<!--技术对接人员  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_waiter_2" class="ajax_change_customer_waiter_2">
+			{foreach name="customer_waiter_2" item="vv"}
+			<option value="{$vv.customer_waiter_id}" class="bgc" {if condition="$v.customer_waiter_2 eq $vv.customer_waiter_id"}selected{/if}>
+			{$vv.customer_waiter_name}
+			</option>
+			{/foreach}
+		</select>
+
+    		<span class="action none">
+    			<a href="{:url('admin/Customer/customer_waiter_2')}" class="green change-waiter_2" data-waiter_2="{$v.customer_waiter_2}" data-id="{$v.n_id}" title="确认">
+					<i class="ace-icon fa fa-check bigger-130"></i>
+				</a>
+    			<a href="javascript:void(0);" class="red cancel-change-waiter_2" data-waiter_2="{$v.customer_waiter_2}" title="取消">
+					<i class="ace-icon fa fa-close bigger-130"></i>
+				</a>
+    		</span>
+	</td>
+	<!--技术对接人员  end-->
+
+	<!--签约金额-->
+	<td class="hidden-xs" align="center">
+		{if condition = "$v.amount_of_money"}
+		{$v.amount_of_money}
+		{else/}
+		/
+		{/if}
+	</td>
+	<!--签约金额-->
+
+	<!--回款总金额-->
+	<td class="hidden-xs" align="center">
+		{if condition = "$v.total_amount"}
+		{$v.total_amount}
+		{else/}
+		/
+		{/if}
+	</td>
+	<!--回款总金额-->
+
+	<!--审核状态-->
+	<td>
+		{if condition="$v['customer_open'] eq 1"}
+		审核通过
+		{else/}
+		<span style="color: red;">审核中</span>
+		{/if}
+	</td>
+	<!--审核状态-->
+
+	<!--项目状态  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_status_doing" class="ajax_change_customer_status_doing">
+			{foreach name="customer_status" item="vv"}
+			<option value="{$vv.customer_status_id}" readonly class="bgc" {if condition="$v.customer_status eq $vv.customer_status_id"}selected{/if}>
+			{$vv.customer_status_name}
+			</option>
+			{/foreach}
+		</select>
+
+		<span class="action none">
+			<a href="{:url('admin/Customer/customer_status_doing')}" class="green change-doing" data-doing="{$v.customer_status}" data-id="{$v.n_id}" title="确认">
+				<i class="ace-icon fa fa-check bigger-130"></i>
+			</a>
+			<a href="javascript:void(0);" class="red cancel-change-doing" data-doing="{$v.customer_status}" title="取消">
+				<i class="ace-icon fa fa-close bigger-130"></i>
+			</a>
+		</span>
+	</td>
+	<!--项目状态  end-->
+
+
+	<!--回款周期  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_collection_period" class="ajax_change_customer_collection_period">
+			{foreach name="customer_collection_period" item="vv"}
+			<option value="{$vv.collection_period_id}" class="bgc" {if condition="$v.customer_collection_period eq $vv.collection_period_id"}selected{/if}>
+			{$vv.collection_period_name}
+			</option>
+			{/foreach}
+		</select>
+
+		<span class="action none">
+			<a href="{:url('admin/Customer/customer_collection_period')}" class="green change-period" data-period="{$v.customer_collection_period}" data-id="{$v.n_id}" title="确认">
+				<i class="ace-icon fa fa-check bigger-130"></i>
+			</a>
+			<a href="javascript:void(0);" class="red cancel-change-period" data-period="{$v.customer_collection_period}" title="取消">
+				<i class="ace-icon fa fa-close bigger-130"></i>
+			</a>
+		</span>
+	</td>
+	<!--回款周期  end-->
+
+	<!--合同周期  start-->
+	<td class="hidden-xs hidden-sm" align="center">
+		<select name="customer_contract_cycle" class="ajax_change_customer_contract_cycle">
+			{foreach name="customer_contract_cycle" item="vv"}
+			<option value="{$vv.customer_contract_cycle_id}" class="bgc" {if condition="$v.customer_contract_cycle eq $vv.customer_contract_cycle_id"}selected{/if}>
+			{$vv.customer_contract_cycle_name}
+			</option>
+			{/foreach}
+		</select>
+
+		<span class="action none">
+			<a href="{:url('admin/Customer/customer_contract_cycle')}" class="green change-cycle" data-cycle="{$v.customer_contract_cycle}" data-id="{$v.n_id}" title="确认">
+				<i class="ace-icon fa fa-check bigger-130"></i>
+			</a>
+			<a href="javascript:void(0);" class="red cancel-change-cycle" data-cycle="{$v.customer_contract_cycle}" title="取消">
+				<i class="ace-icon fa fa-close bigger-130"></i>
+			</a>
+		</span>
+	</td>
+	<!--合同周期  end-->
+
+	<!--操作区-->
+	<td>
+		<!--普通管理员，自己创建的素材-->
+
+		<div class="hidden-sm hidden-xs action-buttons" align="center">
+
+			{if condition="($now_admin_id eq $v.customer_auto) or ($now_admin_group neq 3)"}
+			<a class="green " href="{:url('admin/customer/customer_edit',array('n_id'=>$v['n_id']))}" data-toggle="tooltip" title="修改">
+				<i class="ace-icon fa fa-pencil bigger-130"></i>
+			</a>
+			<a class="red confirm-rst-url-btn" data-info="你确定要删除到回收站吗？" href="{:url('admin/customer/customer_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" title="回收站" data-toggle="tooltip">
+				<i class="ace-icon fa fa-trash-o bigger-130"></i>
+			</a>
+			<a style="display: none;" class="green" href="{:url('admin/customer/excel_runexport?table=aaaa')}" title="导出到Excel">
+				<i class="ace-icon fa fa-share bigger-130"></i>
+			</a>
+			{/if}
+		</div>
+
+
+		<div class="hidden-md hidden-lg">
+			<div class="inline position-relative">
+				<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+					<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+				</button>
+				<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+					<li >
+						<a href="{:url('admin/customer/customer_edit',array('n_id'=>$v['n_id']))}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="修改">
+								<span class="green">
+									<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+								</span>
+						</a>
+					</li>
+					<li>
+						<a href="{:url('admin/customer/customer_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" data-info="你确定要删除到回收站吗？" class="tooltip-error confirm-rst-url-btn" data-rel="tooltip" title="回收站" data-original-title="回收站">
+								<span class="red">
+									<i class="ace-icon fa fa-trash-o bigger-120"></i>
+								</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</td>
+	<!--操作区-->
+
+	<!--签约时间-->
+	<td class="hidden-xs" align="center">
+		{if condition="$v.customer_contract_time eq 0"} 无 {else/} {$v.customer_contract_time|date='Y-m-d',###} {/if}
+	</td>
+	<!--签约时间-->
+
+	<!--执行时间-->
+	<td class="hidden-xs" align="center">
+		{if condition="$v.customer_execution_time eq 0"} 无 {else/} {$v.customer_execution_time|date='Y-m-d',###} {/if}
+	</td>
+	<!--执行时间-->
+
+	<!--合同到期时间-->
+	<td class="hidden-xs" align="center">
+		{if condition="$v.customer_expiration_date eq 0"} 无 {else/} {$v.customer_expiration_date|date='Y-m-d',###} {/if}
+	</td>
+	<!--合同到期时间-->
+
+	<!--创建时间-->
+	<td class="hidden-xs" align="center">{$v.customer_time|date='Y-m-d',###}</td>
+	<!--创建时间-->
+
+	<!--结算方式说明-->
+	<td class="hidden-xs" align="center">{$v.statement_of_settlement}</td>
+	<!--结算方式说明-->
+</tr>
+
+<!--隐藏区域-->
+
+<tr class="detail-row" style="border-top: none;">
+	<td colspan="22">
+
+		<div class="row row_12">
+			<label class="form-label col-xs-3 text-right">
+				<li style="list-style: none;">
+					<a href="{:url('admin/customer/customer_edit_1',array('n_id'=>$v['n_id']))}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="修改">
+						<span class="green">
+							<i class="ace-icon fa fa-pencil-square-o bigger-120">修改应回款清单</i>
+						</span>
+					</a>
+				</li>
+				操作
+			</label>
+			<div class="formControls col-xs-8 select_div">
+				序号
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				期数
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				应回金额数
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				已回金额数
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				应回款时间
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				实回款时间
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				签约总金额数
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				实回总金额数
+			</div>
+			<!--<div class="formControls col-xs-8 select_div">-->
+				<!--总期数-->
+			<!--</div>-->
+			<div class="formControls col-xs-8 select_div">
+				备注
+			</div>
+		</div>
+
+		{foreach name="v.payment_info" item="vv_1"}
+		<div class="row row_12">
+			<label class="form-label col-xs-3 text-right">
+				<a class="green back_paymentedit-btn"  href="{:url('admin/Sys/back_payment_edit')}" data-id="{$vv_1.back_payment_id}"  title="修改">
+					<i class="ace-icon fa fa-pencil bigger-130"></i>
+				</a>
+			</label>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.number_of_periods}{$month_name[$v.customer_collection_period]}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{if condition="$vv_1.is_period neq 0"}
+				{$vv_1.is_period}
+				{else/}
+				未分期
+				{/if}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.amount_of_money}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.actual_amount_of_money}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.back_payment_time|date='Y-m-d',###}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{if condition="$vv_1.actual_back_payment_time"}
+				{$vv_1.actual_back_payment_time|date='Y-m-d',###}
+				{else/}
+				/
+				{/if}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.total_amount}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.actual_total_amount}
+			</div>
+			<div class="formControls col-xs-8 select_div" style="display: none;">
+				{$vv_1.total_number_of_periods}
+			</div>
+			<div class="formControls col-xs-8 select_div">
+				{$vv_1.remark}
+			</div>
+		</div>
+		{/foreach}
+
+	</td>
+</tr>
+<!--隐藏区域-->
+{/foreach}
+
+<tr>
+	<td align="left" class="hidden-xs center" style="display: none;">
+		{eq name = "now_admin_group" value = "1"}
+		<button id="btnsubmit" class="btn btn-white btn-yellow btn-sm hidden-xs">删</button>
+		{/eq}
+	</td>
+	<td colspan="2" align="left" class="hidden-xs center" style="vertical-align: middle;display: none;">
+		<a class="green" href="{:url('admin/customer/excel_runexport')}" title="导出到Excel">导出
+			<i class="ace-icon fa fa-share bigger-130"></i>
+		</a>
+	</td>
+	<td colspan="2" align="left"class="hidden-lg hidden-md hidden-sm">{$page}</td>
+	<td colspan="26" align="right" class="hidden-xs" style="padding-right: 60%;">{$page}</td>
+</tr>

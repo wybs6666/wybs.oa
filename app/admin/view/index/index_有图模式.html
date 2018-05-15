@@ -1,0 +1,577 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+<div class="page-content">
+	<style>
+		.detail_pdo{
+			/*width: 1650px;*/
+			/*height: 650px;*/
+			width: 1000px;
+			height: 450px;
+		}
+		.infobox .infobox-content_1
+		{
+			color: #555555;
+			width: 350px;
+		}
+
+		.widget-header_1{
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+			position: relative;
+			min-height: 38px;
+			/*background: repeat-x #f7f7f7;*/
+			/*background-image: -webkit-linear-gradient(top,#FFF 0,#EEE 100%);*/
+			/*background-image: -o-linear-gradient(top,#FFF 0,#EEE 100%);*/
+			/*background-image: linear-gradient(to bottom,#FFF 0,#EEE 100%);*/
+			/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);*/
+			background-color: #F9F9F9;
+			/*color: #669FC7;*/
+			/*border-bottom: 1px solid #DDD;*/
+			padding-left: 12px;
+			line-height: 38px;
+			padding-top: 5px;
+		}
+		.div_table
+		{
+			width: 1200px;
+		}
+	</style>
+
+	<!--主题-->
+	<div class="row">
+
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active">
+					<a data-toggle="tab" href="#alipay2">
+						近四月回款详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay1" onclick="alipay1();">
+						本月回款详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay8">
+						公司回款情况图
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay3">
+						全部回款详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay5" style="display: none;">
+						签约金额总量
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay6" style="display: none;">
+						回款金额总量
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay7" style="display: none;">
+						项目量统计
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay" style="display: none;">
+						各部门签约金额月度统计
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay4" style="display: none;">
+						各部门回款金额月度统计
+					</a>
+				</li>
+				<!--<li>-->
+				<!--<a data-toggle="tab" href="#aliwappay">-->
+				<!--项目量-->
+				<!--</a>-->
+				<!--</li>-->
+			</ul>
+			<fieldset>
+				<div class="tab-content">
+
+					<!--本月回款情况统计图-->
+					<div id="alipay1" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_33"></div>
+						<script>
+							function alipay1()
+							{
+								{php}
+								echo $pdo_33;
+								{/php}
+							}
+						</script>
+
+						<div class="col-sm-9 div_table" style="display: none;">
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay1_2.0}元</span>
+									<div class="infobox-content_1">【技术部】当月签约总额{$alipay1_1.0}元</div>
+								</div>
+								<div class="stat">回款率{$alipay1_3.0|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay1_2.1}元</span>
+									<div class="infobox-content_1">【营销部】当月签约总额{$alipay1_1.1}元</div>
+								</div>
+								<div class="stat">回款率{$alipay1_3.1|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay1_2.2}元</span>
+									<div class="infobox-content_1">【电商部】当月签约总额{$alipay1_1.2}元</div>
+								</div>
+								<div class="stat">回款率{$alipay1_3.2|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay1_2.3}元</span>
+									<div class="infobox-content_1">【品牌部】当月签约总额{$alipay1_1.3}元</div>
+								</div>
+								<div class="stat">回款率{$alipay1_3.3|round=###,0}%</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="space-6"></div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>部门</th>
+									<th>当月回款总额（元）</th>
+									<th>当月签约总额（元）</th>
+									<th>当月欠款总额（元）</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>技术部</td>
+									<td>{$alipay1_2.0}元</td>
+									<td>{$alipay1_1.0}元</td>
+									<td style="color: red;">{$alipay1_1.0 - $alipay1_2.0}元</td>
+									<td>{$alipay1_3.0|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>营销部</td>
+									<td>{$alipay1_2.1}元</td>
+									<td>{$alipay1_1.1}元</td>
+									<td style="color: red;">{$alipay1_1.1 - $alipay1_2.1}元</td>
+									<td>{$alipay1_3.1|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>电商部</td>
+									<td>{$alipay1_2.2}元</td>
+									<td>{$alipay1_1.2}元</td>
+									<td style="color: red;">{$alipay1_1.2 - $alipay1_2.2}元</td>
+									<td>{$alipay1_3.2|round=###,0}%</td>
+								</tr>
+
+								<tr>
+									<td>品牌部</td>
+									<td>{$alipay1_2.3}元</td>
+									<td>{$alipay1_1.3}元</td>
+									<td style="color: red;">{$alipay1_1.3 - $alipay1_2.3}元</td>
+									<td>{$alipay1_3.3|round=###,0}%</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--各部门签约金额月度统计-->
+					<div id="alipay" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_22"></div>
+						{$pdo_22}
+						<div class="col-sm-9 div_table">
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【技术部】{$alipay_num_1}元</span>
+									<div class="infobox-content">签约总额{$alipay_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay_num_11|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【营销部】{$alipay_num_2}元</span>
+									<div class="infobox-content">签约总额{$alipay_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay_num_22|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【电商部】{$alipay_num_3}元</span>
+									<div class="infobox-content">签约总额{$alipay_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay_num_33|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【品牌部】{$alipay_num_4}元</span>
+									<div class="infobox-content">签约总额{$alipay_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay_num_44|round=###,0}%</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="space-6"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--各部门签约金额月度统计-->
+
+					<!--本月回款情况统计图-->
+					<div id="alipay2" class="tab-pane fade in active" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_44"></div>
+						{$pdo_44}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>回款总额（元）</th>
+									<th>签约总额（元）</th>
+									<th>欠款总额（元）</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>{$alipay2_month.0}</td>
+									<td>{$alipay2_2.0}元</td>
+									<td>{$alipay2_1.0}元</td>
+									<td style="color: red;">{$alipay2_1.0 - $alipay2_2.0}元</td>
+									<td>{$alipay2_3.0|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>{$alipay2_month.1}</td>
+									<td>{$alipay2_2.1}元</td>
+									<td>{$alipay2_1.1}元</td>
+									<td style="color: red;">{$alipay2_1.1 - $alipay2_2.1}元</td>
+									<td>{$alipay2_3.1|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>{$alipay2_month.2}</td>
+									<td>{$alipay2_2.2}元</td>
+									<td>{$alipay2_1.2}元</td>
+									<td style="color: red;">{$alipay2_1.2 - $alipay2_2.2}元</td>
+									<td>{$alipay2_3.2|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>{$alipay2_month.3}</td>
+									<td>{$alipay2_2.3}元</td>
+									<td>{$alipay2_1.3}元</td>
+									<td style="color: red;">{$alipay2_1.3 - $alipay2_2.3}元</td>
+									<td>{$alipay2_3.3|round=###,0}%</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--本月回款情况统计图-->
+					<div id="alipay3" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_55"></div>
+						{$pdo_55}
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>回款总额（元）</th>
+									<th>签约总额（元）</th>
+									<th>欠款总额（元）</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								{foreach name="alipay3_sum" item="vo" key="k"}
+								<tr>
+									<td>{$alipay3_month[$k]}</td>
+									<td></td>
+									<td>{$vo}元</td>
+									<td style="color: red;">{$alipay3_num_2[$k]}元</td>
+									<td>{$alipay3_percent[$k]|round=###,0}%</td>
+								</tr>
+								{/foreach}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--本月回款情况统计图-->
+					<div id="alipay4" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_11"></div>
+						{$pdo_11}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【技术部】{$alipay4_num_1}元</span>
+									<div class="infobox-content">回款总额{$alipay4_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay4_num_11|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【营销部】{$alipay4_num_2}元</span>
+									<div class="infobox-content">回款总额{$alipay4_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay4_num_22|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【电商部】{$alipay4_num_3}元</span>
+									<div class="infobox-content">回款总额{$alipay4_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay4_num_33|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">【品牌部】{$alipay4_num_4}元</span>
+									<div class="infobox-content">回款总额{$alipay4_num_sum}元</div>
+								</div>
+								<div class="stat" style="margin-top: 25px;">所占比重{$alipay4_num_44|round=###,0}%</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="space-6"></div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!--本月回款情况统计图-->
+
+
+					<!--本月回款情况统计图-->
+					<div id="alipay5" class="tab-pane fade" style="overflow-x: auto;">
+						<div id="pdo_2" class="detail_pdo"></div>
+						{$pdo_2}
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--本月回款情况统计图-->
+					<div id="alipay6" class="tab-pane fade" style="overflow-x: auto;">
+						<div id="pdo_3" class="detail_pdo"></div>
+						{$pdo_3}
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--本月回款情况统计图-->
+					<div id="alipay7" class="tab-pane fade" style="overflow-x: auto;">
+						<div id="pdo_1" class="detail_pdo"></div>
+						{$pdo_1}
+					</div>
+					<!--本月回款情况统计图-->
+
+					<!--公司回款情况图-->
+					<div id="alipay8" class="tab-pane fade" style="overflow-x: auto;">
+						<div id="pdo_66" class="detail_pdo"></div>
+						{$pdo_66}
+
+						<div class="col-sm-9 div_table" style="display: none;">
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay8_num[0]}元</span>
+									<div class="infobox-content_1">【当月】签约总额{$alipay8_sum[0]}元</div>
+								</div>
+								<div class="stat">回款率{$alipay8_percent[0]|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay8_num[1]}元</span>
+									<div class="infobox-content_1">【近三月】签约总额{$alipay8_sum[1]}元</div>
+								</div>
+								<div class="stat">回款率{$alipay8_percent[1]|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay8_num[2]}元</span>
+									<div class="infobox-content_1">【近六月】签约总额{$alipay8_sum[2]}元</div>
+								</div>
+								<div class="stat">回款率{$alipay8_percent[2]|round=###,0}%</div>
+							</div>
+							<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-3">
+								<div class="infobox-data">
+									<span class="infobox-data-number">回款{$alipay8_num[3]}元</span>
+									<div class="infobox-content_1">【全部】签约总额{$alipay8_sum[3]}元</div>
+								</div>
+								<div class="stat">回款率{$alipay8_percent[3]|round=###,0}%</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="space-6"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>时间跨度</th>
+									<th>回款总额（元）</th>
+									<th>签约总额（元）</th>
+									<th>欠款总额（元）</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>当月</td>
+									<td>{$alipay8_num[0]}元</td>
+									<td>{$alipay8_sum[0]}元</td>
+									<td style="color: red;">{$alipay8_sum[0] - $alipay8_num[0]}元</td>
+									<td>{$alipay8_percent[0]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>近三月</td>
+									<td>{$alipay8_num[1]}元</td>
+									<td>{$alipay8_sum[1]}元</td>
+									<td style="color: red;">{$alipay8_sum[1] - $alipay8_num[1]}元</td>
+									<td>{$alipay8_percent[1]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>近六月</td>
+									<td>{$alipay8_num[2]}元</td>
+									<td>{$alipay8_sum[2]}元</td>
+									<td style="color: red;">{$alipay8_sum[2] - $alipay8_num[2]}元</td>
+									<td>{$alipay8_percent[2]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>全部</td>
+									<td>{$alipay8_num[3]}元</td>
+									<td>{$alipay8_sum[3]}元</td>
+									<td style="color: red;">{$alipay8_sum[3] - $alipay8_num[3]}元</td>
+									<td>{$alipay8_percent[3]|round=###,0}%</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--公司回款情况图-->
+
+
+
+
+					<!--支付宝配置结束-->
+					<div id="aliwappay" class="tab-pane fade">
+						<div class="form-group">
+
+							<!--下部数据-->
+							<div class="col-sm-9 div_table">
+								<div class="infobox infobox-green col-xs-12 col-sm-6 col-md-6 col-lg-4">
+
+									<div class="infobox-data">
+										<span class="infobox-data-number">00000</span>
+										<div class="infobox-content">今日普通文章数</div>
+									</div>
+									<div class="stat stat-important"></div>
+								</div>
+								<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-4">
+									<div class="infobox-data">
+										<span class="infobox-data-number">0000</span>
+										<div class="infobox-content">今日增加会员</div>
+									</div>
+									<div class="stat stat-success"></div>
+								</div>
+								<div class="infobox infobox-pink col-xs-12 col-sm-6 col-md-6 col-lg-4">
+									<div class="infobox-data">
+										<span class="infobox-data-number">0000</span>
+										<div class="infobox-content">今日评论</div>
+									</div>
+									<div class="stat stat-success"></div>
+								</div>
+								<div class="infobox infobox-orange infobox-dark col-xs-12 col-sm-6 col-md-6 col-lg-4">
+									<div class="infobox-data">
+										<div class="infobox-content">总文章数</div>
+										<a href="{:url('admin/News/news_list')}"><div class="infobox-content"></div></a>
+									</div>
+								</div>
+								<div class="infobox infobox-green infobox-dark col-xs-12 col-sm-6 col-md-6 col-lg-4">
+									<div class="infobox-data">
+										<div class="infobox-content">总会员数</div>
+										<a href="{:url('admin/Member/member_list')}"><div class="infobox-content"></div></a>
+									</div>
+								</div>
+								<div class="infobox infobox-orange2 infobox-dark col-xs-12 col-sm-6 col-md-6 col-lg-4">
+									<div class="infobox-data">
+										<div class="infobox-content">总评论数</div>
+										<a href="{:url('admin/Comment/comment_list')}"><div class="infobox-content"></div></a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="space-6"></div>
+									</div>
+								</div>
+							</div>
+							<!--下部数据-->
+
+						</div>
+					</div>
+					<!--支付宝手机支付配置结束-->
+				</div>
+
+			</fieldset>
+		</div>
+	</div>
+
+	<!--当月应还款清单列表显示-->
+	<div class="row" style="width: 1000px;">
+		<div>
+			<div class="widget-header_1">
+				<h5 class="widget-title bigger lighter sl-font14">
+					<span style="font-size:16px;color: #888888;font-weight: 600;" >当月未回款项目</span>
+				</h5>
+			</div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+				<tr>
+					<th>项目名</th>
+					<th>当月应还金额（元）</th>
+					<th>回款时间</th>
+				</tr>
+				</thead>
+
+				<tbody>
+				{foreach name="back_payment" item="v" key="k"}
+				<tr>
+					<td>{$customer_info[$v.customer_id]}</td>
+					<td>{$v.amount_of_money}</td>
+					<td>{$v.back_payment_time|date='Y-m-d',###}</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--当月应还款清单列表显示-->
+
+</div><!-- /.page-content -->
+{/block}

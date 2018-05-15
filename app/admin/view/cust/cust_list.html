@@ -1,0 +1,359 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+
+<style>
+	#main_table_content
+	{
+		/*width: 1200px;*/
+	}
+	th,td
+	{
+		text-align: center;
+		vertical-align: middle;
+	}
+</style>
+
+<div class="page-content">
+	<link rel="stylesheet" type="text/css" media="all" href="__PUBLIC__/sldate/daterangepicker-bs3.css" />
+	<div class="row maintop">
+
+		<div class="col-xs-4 col-sm-2 margintop5">
+			<a href="{:url('Cust/cust_add')}">
+				<button class="btn btn-sm btn-danger">
+					<i class="ace-icon fa fa-bolt bigger-110"></i>
+					添加客户
+				</button>
+			</a>
+		</div>
+
+		<div class="col-xs-10 col-sm-5 margintop5">
+			<form name="cust_list_sea" class="form-search" method="post" action="{:url('admin/cust/cust_list')}">
+				<div class="input-group">
+						<span class="input-group-addon">
+							<i class="ace-icon fa fa-check"></i>
+						</span>
+						<input type="text" name="search_name" class="form-control" value="{$search_name}" placeholder="输入需查询的客户名" />
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-purple btn-sm">
+								<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+								搜索
+							</button>
+						</span>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-xs-4 col-sm-5 margintop5">
+			<div class="input-group-btn">
+				<a href="{:url('admin/cust/cust_list')}">
+					<button type="button" class="btn btn-sm  btn-purple">
+						<span class="ace-icon fa fa-globe icon-on-right bigger-110"></span>
+						显示全部
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row maintop" style="padding-left: 20%;">
+		{volist name="cust_jibie" id = "vo"}
+		<div class="col-xs-1 col-sm-1">
+			<form name="cust_list_sea" class="form-search" method="post" action="{:url('admin/cust/cust_list')}">
+				<input type="hidden" name="c_jibie" class="form-control" value="{$key}"  />
+				<input class="btn btn-sm" type="submit" value="{$vo}">
+			</form>
+		</div>
+		{/volist}
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div style="overflow-x: scroll;width: 100%;">
+				<form id="leftnav" name="leftnav" method="post" action="" >
+					<input type="hidden" name="checkk" id="checkk" value="1" /><!--用于判断操作类型-->
+					<div id="main_table_content">
+					<table class="table table-striped table-bordered table-hover" id="dynamic-table">
+						<thead>
+							<tr>
+								<th class="hidden-sm hidden-xs">序号</th>
+								<th class="hidden-sm hidden-xs">客户联系人</th>
+								<th class="hidden-sm hidden-xs">跟进人</th>
+								<th class="hidden-sm hidden-xs">所属公司</th>
+								<th class="hidden-sm hidden-xs">客户手机号</th>
+								<th class="hidden-sm hidden-xs">客户评级</th>
+								<th class="hidden-sm hidden-xs">客户类型</th>
+								<th class="hidden-sm hidden-xs" style="display: none;">客户电话</th>
+
+								<!--<th class="hidden-sm hidden-xs">备注</th>-->
+								<th class="hidden-sm hidden-xs" style="display: none;">客户传真</th>
+								<th class="hidden-sm hidden-xs">公司网址</th>
+								<th class="hidden-sm hidden-xs">添加时间</th>
+								<th class="hidden-sm hidden-xs">跟进时间</th>
+								<th class="hidden-sm hidden-xs">联系人性别</th>
+								<!--<th class="hidden-sm hidden-xs">备注</th>-->
+								<th style="border-right:#CCC solid 1px;">操作</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						{foreach name="cust_list" item="v"}
+						<tr>
+
+							<!--客户联系人-->
+							<td class="hidden-sm hidden-xs">{$v.id}</td>
+							<!--客户联系人-->
+							<!--客户联系人-->
+							<td class="hidden-sm hidden-xs">{$v.cust_contact}</td>
+							<!--客户联系人-->
+
+							<!--跟进人-->
+							<td class="hidden-sm hidden-xs">{$customer_waiter_info[$v.cust_belong]}</td>
+							<!--跟进人-->
+
+							<!--公司-->
+
+							<!--客户所属公司  start-->
+							<td class="hidden-xs hidden-xs" align="center">
+								<select name="cust_company_from" class="ajax_change_cust_company_from">
+									<option value="" class="bgc">该客户对应的公司信息已不存在</option>
+									{foreach name="company_info" item="vv"}
+									<option value="{$vv.company_id}" class="bgc" {if condition="$v.company_id eq $vv.company_id"}selected{/if}>
+									{$vv.company_name}
+									</option>
+									{/foreach}
+								</select>
+								<span class="action none">
+									<a href="{:url('admin/cust/cust_company_from')}" class="green change-ifrom" data-ifrom="{$v.company_id}" data-id="{$v.id}" title="确认">
+										<i class="ace-icon fa fa-check bigger-130"></i>
+									</a>
+									<a href="javascript:void(0);" class="red cancel-change-ifrom" data-ifrom="{$v.company_id}" title="取消">
+										<i class="ace-icon fa fa-close bigger-130"></i>
+									</a>
+								</span>
+							</td>
+							<!--客户所属公司  end-->
+							<!--公司-->
+
+							<!--客户手机号-->
+							<td class="hidden-sm hidden-xs">{$v.cust_mobile}</td>
+							<!--客户手机号-->
+
+							<!--客户评级-->
+							<td class="hidden-sm hidden-xs">{$cust_jibie[$v.cust_jibie]}</td>
+							<!--客户评级-->
+
+							<!--客户级别  start-->
+							<td class="hidden-xs hidden-xs" align="center">
+								<select name="cust_level_info" class="ajax_change_cust_level_info">
+									{foreach name="cust_level_info" item="vv"}
+									<option value="{$vv.cust_level_id}" class="bgc" {if condition="$v.cust_level eq $vv.cust_level_id"}selected{/if}>
+									{$vv.cust_level_name}
+									</option>
+									{/foreach}
+								</select>
+
+								<span class="action none">
+									<a href="{:url('admin/cust/cust_level_info')}" class="green change-info" data-info="{$v.cust_level}" data-id="{$v.id}" title="确认">
+										<i class="ace-icon fa fa-check bigger-130"></i>
+									</a>
+									<a href="javascript:void(0);" class="red cancel-change-info" data-info="{$v.cust_level}" title="取消">
+										<i class="ace-icon fa fa-close bigger-130"></i>
+									</a>
+								</span>
+							</td>
+							<!--客户级别  end-->
+
+							<!--客户座机号-->
+							<td class="hidden-sm hidden-xs" style="display: none;">{$v.cust_tel}</td>
+							<!--客户座机号-->
+
+							<!--备注-->
+							<td class="hidden-sm hidden-xs" style="display: none;">{$v.cust_remark}</td>
+							<!--备注-->
+
+							<!--客户传真-->
+							<td class="hidden-sm hidden-xs" style="display: none;">{$v.cust_fax}</td>
+							<!--客户传真-->
+
+							<!--客户博客-->
+							<td class="hidden-sm hidden-xs">
+								{if condition = "$v.official_website neq null"}
+								<a href="{$v.official_website}" title="{$v.official_website}" target="_blank">{$v.official_website}</a>
+
+								{else/}
+								<span style="color: blue;">公司网址未录入!</span>
+								{/if}
+							</td>
+							<!--客户博客-->
+
+							<!--客户级别-->
+
+							<!--添加时间-->
+							<td class="hidden-sm hidden-xs">{$v.cust_add_time|date='Y-m-d',###}</td>
+							<!--添加时间-->
+
+							<!--跟进时间-->
+							<td class="hidden-sm hidden-xs">{$v.cust_update_time|date='Y-m-d',###}</td>
+							<!--跟进时间-->
+
+							<!--性别-->
+							{if condition="$v.cust_sex eq 1"}
+							<td height="28" >男</td>
+							{else/}
+							<td height="28" >女</td>
+							{/if}
+							<!--性别-->
+
+							<!--跟进时间-->
+							<td style="display: none;" class="hidden-sm hidden-xs">{$v.remark}</td>
+							<!--跟进时间-->
+
+							<!--操作-->
+							<td style="width: 6%;">
+								<label class="form-label col-xs-3 text-right">
+									<a class="green cust_communication_details"  href="{:url('admin/cust/cust_communication_details')}" data-id="{$v.id}"  title="沟通详情">
+										<span class="blue">
+										<i class="ace-icon fa fa-file bigger-120"></i>
+										</span>
+									</a>
+								</label>
+
+								{if condition="$v.is_operation"}
+								<div class="hidden-sm hidden-xs action-buttons">
+									<a class="green" href="{:url('cust/cust_edit',array('id'=>$v['id']))}" title="修改">
+										<i class="ace-icon fa fa-pencil bigger-130"></i>
+									</a>
+									<a  class="red confirm-rst-url-btn" data-info="你确定要删除吗？" href="{:url('cust/cust_del',array('id'=>$v['id']))}" title="删除">
+										<i class="ace-icon fa fa-trash-o bigger-130"></i>
+									</a>
+								</div>
+								{/if}
+								<div class="hidden-md hidden-lg">
+									<div class="inline position-relative">
+										<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+											<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+											<li>
+												<a href="{:url('cust/cust_edit',array('id'=>$v['id']))}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="修改">
+													<span class="green">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="{:url('cust/cust_del',array('id'=>$v['id']))}"  data-info="你确定要删除吗？" class="tooltip-error confirm-rst-url-btn" data-rel="tooltip" title="" data-original-title="删除">
+														<span class="red">
+															<i class="ace-icon fa fa-trash-o bigger-120"></i>
+														</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</td>
+							<!--操作-->
+
+						</tr>
+						{/foreach}
+
+						<tr>
+							<td height="50" colspan="14" style="padding-right: 60%;">{$page}</td>
+						</tr>
+						</tbody>
+					</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--详情展示-->
+	<div class="modal fade in" id="myModaledit1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-backdrop fade in" id="gbbb1" style="height: 100%;" ></div>
+		<form class="form-horizontal ajaxForm2" name="back_payment_runedit" method="post" action="{:url('admin/cust/cust_communication_rundetails')}">
+			<input type="hidden" name="cust_id" id="edit_cust_id" value=""/>
+			<div class="modal-dialog" style=" width: 80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" id="gb1"  data-dismiss="modal"
+								aria-hidden="true">×
+						</button>
+						<h4 class="modal-title" id="myModalLabel1">
+							添加沟通进度
+						</h4>
+					</div>
+					<div class="modal-body" id="back_payment_detail1">
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 沟通方式：  </label>
+							<div class="col-sm-10">
+								<select name="communicate_type" id="">
+									<option value="电话">电话</option>
+									<option value="微信qq">微信qq</option>
+									<option value="线下拜访">线下拜访</option>
+								</select>
+							</div>
+						</div>
+						<div class="space-4"></div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 沟通结果：  </label>
+							<div class="col-sm-10">
+								<input type="text" name="communicate_res" id="communicate_res" placeholder="沟通结果（如：进展顺利）" class="col-xs-10 col-sm-10" required/>
+							</div>
+						</div>
+						<div class="space-4"></div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 沟通时间：  </label>
+							<div class="col-sm-10">
+								<input id="communicate_time" name="communicate_time" class="date-picker col-xs-10 col-sm-2"  type="text" data-date-format="yyyy-mm-dd">
+
+							</div>
+						</div>
+						<div class="space-4"></div>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">
+							提交保存
+						</button>
+						<button class="btn btn-info" type="reset">
+							重置
+						</button>
+						<button type="button" class="btn btn-default"  id="gbb1" >
+							关闭
+						</button>
+					</div>
+
+
+					<div class="modal-header">
+						<h4 class="modal-title">
+							近期沟通进度
+						</h4>
+					</div>
+					<div class="modal-body" id="back_payment_detail2">
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</form>
+	</div><!-- /.modal -->
+
+</div><!-- /.page-content -->
+{/block}
+{block name="scripts"}
+<script type="text/javascript" src="__PUBLIC__/sldate/moment.js"></script>
+<script type="text/javascript" src="__PUBLIC__/sldate/daterangepicker.js"></script>
+<script type="text/javascript">
+	$('#reservation').daterangepicker(null, function (start, end, label) {
+		console.log(start.toISOString(), end.toISOString(), label);
+	});
+
+	$('.date-picker').datepicker({
+		autoclose: true,
+		todayHighlight: true,
+	})
+</script>
+{/block}

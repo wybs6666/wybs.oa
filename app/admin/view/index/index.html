@@ -1,0 +1,318 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+<div class="page-content">
+	<style>
+		.detail_pdo{
+			/*width: 1650px;*/
+			/*height: 650px;*/
+			width: 1000px;
+			height: 450px;
+		}
+		.infobox .infobox-content_1
+		{
+			color: #555555;
+			width: 350px;
+		}
+
+		.widget-header_1{
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+			position: relative;
+			min-height: 38px;
+			/*background: repeat-x #f7f7f7;*/
+			/*background-image: -webkit-linear-gradient(top,#FFF 0,#EEE 100%);*/
+			/*background-image: -o-linear-gradient(top,#FFF 0,#EEE 100%);*/
+			/*background-image: linear-gradient(to bottom,#FFF 0,#EEE 100%);*/
+			/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);*/
+			background-color: #F9F9F9;
+			/*color: #669FC7;*/
+			/*border-bottom: 1px solid #DDD;*/
+			padding-left: 12px;
+			line-height: 38px;
+			padding-top: 5px;
+		}
+		.div_table
+		{
+			width: 1200px;
+		}
+	</style>
+
+	<!--主题-->
+	<div class="row">
+
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active">
+					<a data-toggle="tab" href="#alipay2">
+						近四月回款详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay1">
+						本月回款详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay8">
+						公司回款情况图
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay3">
+						全部回款详情
+					</a>
+				</li>
+				<!--<li>-->
+					<!--<a data-toggle="tab" href="#alipay5" style="display: none;">-->
+						<!--签约金额总量-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a data-toggle="tab" href="#alipay6" style="display: none;">-->
+						<!--当月已回总量-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a data-toggle="tab" href="#alipay7" style="display: none;">-->
+						<!--项目量统计-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a data-toggle="tab" href="#alipay" style="display: none;">-->
+						<!--各部门当月应回月度统计-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a data-toggle="tab" href="#alipay4" style="display: none;">-->
+						<!--各部门当月已回月度统计-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<li>-->
+				<!--<a data-toggle="tab" href="#aliwappay">-->
+				<!--项目量-->
+				<!--</a>-->
+				<!--</li>-->
+			</ul>
+			<fieldset>
+				<div class="tab-content">
+
+					<!--本月回款情况统计图-->
+					<div id="alipay1" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_33"></div>
+						{$pdo_33}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>部门</th>
+									<th>当月已回</th>
+									<th>当月应回</th>
+									<th>当月欠款</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>技术部</td>
+									<td>{$alipay1_2.0}元</td>
+									<td>{$alipay1_1.0}元</td>
+									<td style="color: red;">{$alipay1_1.0 - $alipay1_2.0}元</td>
+									<td>{$alipay1_3.0|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>营销部</td>
+									<td>{$alipay1_2.1}元</td>
+									<td>{$alipay1_1.1}元</td>
+									<td style="color: red;">{$alipay1_1.1 - $alipay1_2.1}元</td>
+									<td>{$alipay1_3.1|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>电商部</td>
+									<td>{$alipay1_2.2}元</td>
+									<td>{$alipay1_1.2}元</td>
+									<td style="color: red;">{$alipay1_1.2 - $alipay1_2.2}元</td>
+									<td>{$alipay1_3.2|round=###,0}%</td>
+								</tr>
+
+								<tr>
+									<td>品牌部</td>
+									<td>{$alipay1_2.3}元</td>
+									<td>{$alipay1_1.3}元</td>
+									<td style="color: red;">{$alipay1_1.3 - $alipay1_2.3}元</td>
+									<td>{$alipay1_3.3|round=###,0}%</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<!--本月已回情况统计图-->
+
+					<!--本月已回情况统计图-->
+					<div id="alipay2" class="tab-pane fade in active" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_44"></div>
+						{$pdo_44}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>当月已回</th>
+									<th>当月应回</th>
+									<th>当月欠款</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+
+								{foreach name="alipay2_month" item = "vo" key="k"}
+								<tr>
+									<td>{$vo}</td>
+									<td>{$alipay2_2[$k]}元</td>
+									<td>{$alipay2_1[$k]}元</td>
+									<td style="color: red;">{$alipay2_1[$k] - $alipay2_2[$k]}元</td>
+									<td>{$alipay2_3[$k]|round=###,0}%</td>
+								</tr>
+								{/foreach}
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<!--本月已回情况统计图-->
+
+					<!--本月已回情况统计图-->
+					<div id="alipay3" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_55"></div>
+						{$pdo_55}
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>当月已回</th>
+									<th>当月应回</th>
+									<th>当月欠款</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								{foreach name="alipay3_sum" item="vo" key="k"}
+								<tr>
+									<td>{$alipay3_month[$k]}</td>
+									<td>{$alipay3_num[$k]}</td>
+									<td>{$vo}元</td>
+									<td style="color: red;">{$alipay3_num_2[$k]}元</td>
+									<td>{$alipay3_percent[$k]|round=###,0}%</td>
+								</tr>
+								{/foreach}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--本月已回情况统计图-->
+
+					<!--公司回款情况图-->
+					<div id="alipay8" class="tab-pane fade" style="overflow-x: auto;">
+						<div id="pdo_66" class="detail_pdo"></div>
+						{$pdo_66}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>时间跨度</th>
+									<th>已回金额</th>
+									<th>应回金额</th>
+									<th>欠款</th>
+									<th>回款率</th>
+								</tr>
+								</thead>
+
+								<tbody>
+								<tr>
+									<td>当月</td>
+									<td>{$alipay8_num[0]}元</td>
+									<td>{$alipay8_sum[0]}元</td>
+									<td style="color: red;">{$alipay8_sum[0] - $alipay8_num[0]}元</td>
+									<td>{$alipay8_percent[0]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>近三月</td>
+									<td>{$alipay8_num[1]}元</td>
+									<td>{$alipay8_sum[1]}元</td>
+									<td style="color: red;">{$alipay8_sum[1] - $alipay8_num[1]}元</td>
+									<td>{$alipay8_percent[1]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>近六月</td>
+									<td>{$alipay8_num[2]}元</td>
+									<td>{$alipay8_sum[2]}元</td>
+									<td style="color: red;">{$alipay8_sum[2] - $alipay8_num[2]}元</td>
+									<td>{$alipay8_percent[2]|round=###,0}%</td>
+								</tr>
+								<tr>
+									<td>全部</td>
+									<td>{$alipay8_num[3]}元</td>
+									<td>{$alipay8_sum[3]}元</td>
+									<td style="color: red;">{$alipay8_sum[3] - $alipay8_num[3]}元</td>
+									<td>{$alipay8_percent[3]|round=###,0}%</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--公司回款情况图-->
+
+
+				</div>
+
+			</fieldset>
+		</div>
+	</div>
+
+	<!--当月应还款清单列表显示-->
+	<div class="row" style="width: 1000px;">
+		<div>
+			<div class="widget-header_1">
+				<h5 class="widget-title bigger lighter sl-font14">
+					<span style="font-size:16px;color: #888888;font-weight: 600;" >当月回款情况</span>
+				</h5>
+			</div>
+
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+				<tr>
+					<th>项目名</th>
+					<th>已回金额</th>
+					<th>应回金额</th>
+					<th>欠款</th>
+					<th>应回时间</th>
+				</tr>
+				</thead>
+
+				<tbody>
+				{foreach name="back_payment" item="v" key="k"}
+				<tr>
+					<td>{$customer_info[$v.customer_id]}</td>
+					<td>{$v.actual_amount_of_money}</td>
+					<td>{$v.amount_of_money}</td>
+					<td style="color: red;">{$v.amount_of_money - $v.actual_amount_of_money}</td>
+					<td>{$v.back_payment_time|date='Y-m-d',###}</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--当月应还款清单列表显示-->
+
+</div><!-- /.page-content -->
+{/block}

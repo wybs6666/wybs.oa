@@ -1,0 +1,245 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+
+<style>
+	#main_table_content
+	{
+		width: 1000px;
+	}
+</style>
+
+<div class="page-content">
+
+	<div class="row maintop">
+
+		<div class="col-xs-4 col-sm-2 margintop5">
+			<a href="{:url('Company/company_add')}">
+				<button class="btn btn-sm btn-danger">
+					<i class="ace-icon fa fa-bolt bigger-110"></i>
+					添加公司
+				</button>
+			</a>
+		</div>
+
+		<div class="col-xs-10 col-sm-5 margintop5">
+			<form name="company_list_sea" class="form-search" method="post" action="{:url('admin/Company/company_list')}">
+				<div class="input-group">
+							<span class="input-group-addon">
+								<i class="ace-icon fa fa-check"></i>
+							</span>
+					<input type="text" name="search_name" class="form-control" value="{$search_name}" placeholder="输入需查询的公司名" />
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-purple btn-sm">
+									<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+									搜索
+								</button>
+							</span>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-xs-4 col-sm-5 margintop5">
+			<div class="input-group-btn">
+				<a href="{:url('company/Company/company_list')}">
+					<button type="button" class="btn btn-sm  btn-purple">
+						<span class="ace-icon fa fa-globe icon-on-right bigger-110"></span>
+						显示全部
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div style="overflow-x: scroll;width: 100%;">
+				<form id="leftnav" name="leftnav" method="post" action="" >
+					<input type="hidden" name="checkk" id="checkk" value="1" /><!--用于判断操作类型-->
+					<div id="main_table_content">
+					<table class="table table-striped table-bordered table-hover" id="dynamic-table">
+						<thead>
+						<tr>
+							<th class="hidden-sm hidden-xs">公司编号</th>
+							<th class="hidden-sm hidden-xs">审核状态</th>
+							<th class="hidden-sm hidden-xs">公司名</th>
+							<!--<th>公司logo</th>-->
+							<th>所属行业</th>
+							<th class="hidden-sm hidden-xs">公司邮箱</th>
+							<th>公司简称</th>
+							<!--<th class="hidden-sm hidden-xs">甲方对接人</th>-->
+							<th class="hidden-sm hidden-xs">创建时间</th>
+							<th style="border-right:#CCC solid 1px;">操作</th>
+						</tr>
+						</thead>
+
+						<tbody>
+						{foreach name="company_list" item="v"}
+						<tr>
+							<td height="28" >{$v.company_number}</td>
+							<td class="hidden-sm hidden-xs" style="text-align: center;">
+								{if condition="$v['is_open'] eq 0"}
+								<a class="red display-btn1" href="{:url('admin/Company/company_state')}" target="_blank" data-id="{$v.company_id}" title="已开启">
+									<div>
+										<button class="btn btn-minier btn-yellow">显示</button>
+									</div>
+								</a>
+								{else/}
+								<a class="red display-btn1" href="{:url('admin/Company/company_state')}" data-id="{$v.company_id}" title="已禁用">
+									<div>
+										<button class="btn btn-minier btn-danger">隐藏</button>
+									</div>
+								</a>
+								{/if}
+							</td>
+							<td class="hidden-sm hidden-xs">
+								{if condition = "$v.official_website neq null"}
+								<a href="{$v.official_website}" target="_blank">{$v.company_name}</a>
+
+								{else/}
+								{$v.company_name}
+								{/if}
+								<a class="back_paymentedit-btn4" href="{:url('admin/Company/company_detail')}" data-id="{$v.company_id}"   data-toggle="tooltip" title="公司详情">
+									<span class="green">
+										<i class="ace-icon fa fa-cog bigger-120"></i>
+									</span>
+								</a>
+								<a class="back_paymentedit-btn2" href="{:url('admin/Company/company_back_payment_detail')}" data-id="{$v.company_id}" data-toggle="tooltip" title="公司回款详情">
+									<span class="blue">
+										<i class="ace-icon fa fa-file bigger-120"></i>
+									</span>
+								</a>
+							</td>
+							<!--<td>{$v.company_img}</td>-->
+							<!--行业类别  start-->
+							<td class="hidden-xs hidden-sm" align="center">
+								<select name="industry_category_doing3" class="ajax_change_industry_category_doing3">
+									{foreach name="industry_category" item="vv"}
+									<option value="{$vv.industry_category_id}" class="bgc" {if condition="$v.industry_category eq $vv.industry_category_id"}selected{/if}>
+									{$vv.industry_category_name}
+									</option>
+									{/foreach}
+								</select>
+
+								<span class="action none">
+									<a href="{:url('admin/Company/industry_category_doing3')}" class="green change-doing3" data-doing3="{$v.industry_category}" data-id="{$v.company_id}" title="确认">
+										<i class="ace-icon fa fa-check bigger-130"></i>
+									</a>
+									<a href="javascript:void(0);" class="red cancel-change-doing3" data-doing3="{$v.industry_category}" title="取消">
+										<i class="ace-icon fa fa-close bigger-130"></i>
+									</a>
+								</span>
+							</td>
+							<td class="hidden-sm hidden-xs">{$v.company_mail}</td>
+							<!--行业类别  end-->
+							<td>{$v.company_alias}</td>
+
+							<td class="hidden-sm hidden-xs">{if condition="$v.company_create_time"}{$v.company_create_time|date='Y-m-d',###}{else/}未输入{/if}</td>
+							<td>
+								<div class="hidden-sm hidden-xs action-buttons">
+									<a class="green" href="{:url('company/company_edit',array('company_id'=>$v['company_id']))}" title="修改">
+										<i class="ace-icon fa fa-pencil bigger-130"></i>
+									</a>
+									{if condition="$can_del"}
+									<a  class="red confirm-rst-url-btn" data-info="你确定要删除吗？" href="{:url('company/company_del',array('company_id'=>$v['company_id']))}" title="删除">
+										<i class="ace-icon fa fa-trash-o bigger-130"></i>
+									</a>
+									{/if}
+								</div>
+								<div class="hidden-md hidden-lg">
+									<div class="inline position-relative">
+										<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+											<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+											<li>
+												<a href="{:url('company/company_edit',array('company_id'=>$v['company_id']))}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="修改">
+														<span class="green">
+															<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+														</span>
+												</a>
+											</li>
+											<li>
+												<a href="{:url('company/company_del',array('company_id'=>$v['company_id']))}"  data-info="你确定要删除吗？" class="tooltip-error confirm-rst-url-btn" data-rel="tooltip" title="" data-original-title="删除">
+														<span class="red">
+															<i class="ace-icon fa fa-trash-o bigger-120"></i>
+														</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</td>
+						</tr>
+						{/foreach}
+
+						<tr>
+							<td height="50" colspan="12" style="padding-right: 15%;">{$page}</td>
+						</tr>
+
+						</tbody>
+					</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--详情展示-->
+	<div class="modal fade in" id="myModaledit1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-backdrop fade in" id="gbbb1" style="height: 100%;" ></div>
+		<form class="form-horizontal ajaxForm2" name="back_payment_runedit" method="post" action="{:url('admin/Sys/back_payment_runedit')}">
+			<input type="hidden" name="back_payment_id1" id="editback_payment_id1" value="" />
+			<div class="modal-dialog" style=" width: 80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" id="gb1"  data-dismiss="modal"
+								aria-hidden="true">×
+						</button>
+						<h4 class="modal-title" id="myModalLabel1">
+							对应所有项目回款详情一览
+						</h4>
+					</div>
+					<div class="modal-body" id="back_payment_detail1">
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"  id="gbb1" >
+							关闭
+						</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</form>
+	</div><!-- /.modal -->
+
+
+	<!-- 公司详情-->
+	<div class="modal fade in" id="myModaledit2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-backdrop fade in" id="gbbb2" style="height: 100%;" ></div>
+
+		<div class="modal-dialog" style=" width: 30%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" id="gb2"  data-dismiss="modal"
+							aria-hidden="true">×
+					</button>
+					<h4 class="modal-title" id="myModalLabel2">
+						公司详情
+					</h4>
+				</div>
+				<div class="modal-body" id="back_payment_detail2" style="min-height: 300px;">
+
+				</div>
+				<div class="modal-footer" style="margin-top: 10px;">
+					<button type="button" class="btn btn-default"  id="gbb2" >
+						关闭
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+
+	</div><!-- /.modal -->
+
+</div><!-- /.page-content -->
+
+{/block}

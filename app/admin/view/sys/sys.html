@@ -1,0 +1,125 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+<div class="page-content">
+    <!--主题-->
+    <div class="page-header">
+        <h1>
+            您当前操作
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                站点设置
+            </small>
+        </h1>
+    </div>
+    <div class="row">
+
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#basic">
+                        基本设置
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#contact">
+                        公司是否审核切换
+                    </a>
+                </li>
+
+            </ul>
+            <form class="form-horizontal ajaxForm2" name="sys" method="post" action="{:url('admin/Sys/runsys')}">
+                <fieldset>
+                    <div class="tab-content">
+                        <div id="basic" class="tab-pane fade in active">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 短信
+                                    [access_key] </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="options[site_name]" id="site_name" value="{$sys.site_name}"
+                                           class="col-xs-10 col-sm-7" required/>
+								<span class="help-inline col-xs-12 col-sm-5">
+									<span class="middle" id="resone">*</span>
+								</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 短信
+                                    [access_secret] </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="options[site_host]" id="site_host" value="{$sys.site_host}"
+                                           class="col-xs-10 col-sm-7" required/>
+										<span class="help-inline col-xs-12 col-sm-5">
+											<span class="middle" id="restwo">*</span>
+										</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 短信
+                                    [sign_name] </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="options[site_tpl]" id="site_tpl" value="{$sys.site_tpl}"
+                                           class="col-xs-10 col-sm-7" required/>
+										<span class="help-inline col-xs-12 col-sm-5">
+											<span class="middle" id="restwo">*</span>
+										</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 短信模板
+                                    [CODE] </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="options[site_tpl_m]" id="site_tpl_m"
+                                           value="{$sys.site_tpl_m}" class="col-xs-10 col-sm-7" required/>
+										<span class="help-inline col-xs-12 col-sm-5">
+										<span class="middle" id="restwo">*</span>
+										</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="contact" class="tab-pane fade">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 公司添加时 </label>
+                                <div class="col-sm-9">
+                                    <select name="options[site_co_name]" id="site_co_name" class="col-xs-10 col-sm-3" required>
+                                        <option value="1" {if condition="$sys.site_co_name eq 1"}selected="selected"{/if}>需要审核</option>
+                                        <option value="2" {if condition="$sys.site_co_name eq 2"}selected="selected"{/if}>无需审核</option>
+                                    </select>
+									<span class="middle" id="resone"></span>
+								</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix form-actions">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button class="btn btn-info" type="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                保存
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div><!-- /.page-content -->
+{/block}

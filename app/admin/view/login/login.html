@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	<title>用户登录</title>
+	<meta name="description" content="User login page" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			/*border:none;*/
+		}
+		h1{
+			padding-top: 200px;
+		}
+		body,html{
+			width: 100%;
+			height: 100%;
+			background: url('/public/img/logobg.jpg') no-repeat center;
+			background-size: 100% 100%;
+		}
+		.container
+		{
+			width: 370px;
+			height: 220px;
+			margin:50px auto;
+			background: rgba(255,255,255,0.7);
+			box-shadow: 0px 0px 5px #fff;
+			padding:30px 20px;
+			box-sizing: border-box;
+			border-radius: 10px;
+			/*opacity: 0.8;*/
+		}
+		h1,h2{
+			text-align: center;
+			color: #fff;
+		}
+		.container form p {
+			margin-bottom: 20px;
+		}
+		.container form p input{
+			border:0;
+			width: 330px;
+			height: 40px;
+			padding-left:15px;
+			box-sizing: border-box;
+			background: #f7f7f7;
+		}
+		.container form p.sub{
+			display: flex;
+			justify-content: center;
+		}
+		.container form p.sub input{
+			text-align: center;
+			width: 160px;
+			padding-left: 0;
+			background: #EEEEEE;
+			border-radius: 10px;
+		}
+		.container form p.sub input:hover{
+			background: #313333;
+			color:#fff;
+		}
+	</style>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="__PUBLIC__/others/html5shiv.min.js"></script>
+	<script src="__PUBLIC__/others/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<h1>Welcome to Slanmedia</h1>
+<!-- <h2>行星号管理平台</h2> -->
+<div class="container">
+	<form class="ajaxForm3" name="runlogin" id="runlogin" method="post" action="{:url('admin/Sms/runlogin')}">
+		<p><input name="mobile" id="mobile" type="text" value="" placeholder="手机号" required></p>
+		<p><input type="text" name="verify" id="verify" value="" placeholder="验证码" required></p>
+		<p class="sub">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+
+			<input type="button" value="获取验证码" onclick="get_verify();">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" value="验证并登录">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+		</p>
+	</form>
+</div>
+
+<!-- 基本的js -->
+<!--[if !IE]> -->
+<script src="__PUBLIC__/others/jquery.min-2.2.1.js"></script>
+<!-- <![endif]-->
+<!-- 如果为IE,则引入jq1.12.1 -->
+<!--[if IE]>
+<script src="__PUBLIC__/others/jquery.min-1.12.1.js"></script>
+<![endif]-->
+<!-- jquery.form、layer、yfcmf的js -->
+<script src="__PUBLIC__/others/bootstrap.min.js"></script>
+<script src="__PUBLIC__/others/jquery.form.js"></script>
+<script src="__PUBLIC__/layer/layer_zh-cn.js"></script>
+<script src="__PUBLIC__/others/maxlength.js"></script>
+<script src="__PUBLIC__/yfcmf/yfcmf.js"></script>
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script>
+	function get_verify()
+	{
+		var mobile = $('#mobile').val();
+		var data = {
+			'mobile' : mobile,
+		};
+		var url = "/admin/sms/api";
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : data,
+			/*
+			提交数据前的验证
+			 */
+			beforeSend : function()
+			{
+				if (!mobile.match(/^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/))
+				{
+					layer.msg('手机号格式不正确!');
+					return false;
+				}
+			},
+			success : function(msg)
+			{
+				if (msg == "1")
+				{
+					layer.msg('验证码发送成功!');
+				}
+				else if(msg == 3)
+				{
+					layer.alert('时间间隔不满一分钟，请耐心等待!', {icon: 4});
+				}
+				else if(msg == 4)
+				{
+					layer.alert('该管理员已禁用或后台人员无此手机号', {icon: 5}, function (index)
+					{
+						layer.close(index);
+						$('#mobile').focus();
+					});
+				}
+				else if(msg == 5)
+				{
+					layer.alert('该管理员已禁用！', {icon: 5});
+				}
+				else
+				{
+					layer.alert('已超出套餐限制：手机验证码支持：1条/分钟，5条/小时，10条/天', {icon: 5});
+				}
+			},
+			complete : function()
+			{
+
+			},
+			error : function()
+			{
+			}
+		});
+	}
+
+
+	/**
+	 * 验证手机号
+	 *
+	 * @param mobile
+	 * @returns {boolean}
+	 */
+	function isPoneAvailable(mobile)
+	{
+		var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+		if (!myreg.test(mobile))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+</script>
+<!-- 如果为触屏,则引入jquery.mobile -->
+<script type="text/javascript">
+	if('ontouchstart' in document.documentElement) document.write("<script src='__PUBLIC__/others/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+</body>
+</html>

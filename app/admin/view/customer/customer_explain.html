@@ -1,0 +1,34 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+	<div class="page-content">
+		<link rel="stylesheet" type="text/css" media="all" href="__PUBLIC__/sldate/daterangepicker-bs3.css" />
+
+		<div class="page-content small_page-content">
+			<p>
+				1、已合作项目
+				公司全称、所在地区、行业分类、品牌分类（多个）、服务类型（公司的业务如SEO等可√选）、机构信用等级（根据每次应回款项的到账来评估回款频率百分比做评价）<br>【<br>一级+：无延迟款项记录。<br>一级：一次以内延迟款项。<br》二级+：两次延迟款项记录。<br>二级-：短期拖欠款项。<br>三级-：长期30天拖欠款项<br>】
+			</p>
+			<p>
+				2、未合作项目
+				公司全称、所在地区、行业分类、品牌分类（多个）、<br>意向服务（公司的业务如SEO等可√选）、<br>意向评级（无效项目、同行、再考虑等）咨询时间、销售人、回访次数（每次都记录回访情况和时间还有回访的人）
+			</p>
+			</div>
+
+
+
+
+
+
+
+
+	</div><!-- /.page-content -->
+{/block}
+{block name="scripts"}
+	<script type="text/javascript" src="__PUBLIC__/sldate/moment.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/sldate/daterangepicker.js"></script>
+    <script type="text/javascript">
+        $('#reservation').daterangepicker(null, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    </script>
+{/block}

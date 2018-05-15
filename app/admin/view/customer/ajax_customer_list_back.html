@@ -1,0 +1,151 @@
+{foreach name="customer" item="v"}
+	<tr>
+		<!--多选框-->
+		<td class="hidden-xs" align="center">
+			<label class="pos-rel">
+				<input name='n_id[]' id="navid" class="ace"  type='checkbox' value='{$v.n_id}'>
+				<span class="lbl"></span>
+			</label>
+		</td>
+		<!--多选框-->
+
+		<!--ID号-->
+		<td class="hidden-xs" align="center">{$v.n_id}</td>
+		<!--ID号-->
+
+		<!--代表图-->
+		<!--<td align="center">-->
+			<!--{if condition="$v.customer_img"}-->
+			<!--<img src="{$v.customer_img}" height="35px;">-->
+			<!--{else/} 未上传 {/if}-->
+		<!--</td>-->
+		<!--代表图-->
+
+		<!--服务项目-->
+		<td class="hidden-xs" align="center">{$customer_service_items_need[$v.customer_service_items]}</td>
+		<!--服务项目-->
+
+		<!--项目名-->
+		<td>
+			{$v.customer_title|subtext=25}
+		</td>
+		<!--项目名-->
+
+		<!--公司名-->
+		<td>
+			{$company_info_need[$v.company_id]}
+			<a class="back_paymentedit-btn4" href="{:url('admin/Company/company_detail')}">公司详情</a>
+			<a class="back_paymentedit-btn2" href="{:url('admin/Company/company_back_payment_detail')}" data-id="{$v.company_id}" >[回款详情]</a>
+		</td>
+		<!--公司名-->
+
+		<!--回款总金额-->
+		<td class="hidden-xs" align="center">
+			{if condition = '$v.need_info'}
+			{$v.need_info.total_amount}
+			{else}
+			未签约
+			{/if}
+		</td>
+		<!--回款总金额-->
+
+		<!--服务项目-->
+		<td class="hidden-xs" align="center">{$customer_service_items_need[$v.customer_service_items]}</td>
+		<!--服务项目-->
+
+		<!--编辑者-->
+		<td class="hidden-xs" align="center">{$customer_creator_info[$v['customer_auto']]}</td>
+		<!--编辑者-->
+
+		<!--回款类型-->
+		<td class="hidden-xs" align="center">{$customer_payment_type_need[$v.customer_payment_type]}</td>
+		<!--回款类型-->
+
+		<!--信用等级-->
+		<td class="hidden-xs" align="center">
+			{if condition="$customer_credit_rating_need"} {$customer_credit_rating_need[$v.customer_credit_rating]} {else/} 未评定 {/if}
+		</td>
+		<!--信用等级-->
+
+		<!--商务对接人-->
+		<td class="hidden-xs" align="center">{$customer_waiter_need[$v.customer_waiter_1]}</td>
+		<!--对接人-->
+
+		<!--技术对接人-->
+		<td class="hidden-xs" align="center">{$customer_waiter_need[$v.customer_waiter_2]}</td>
+		<!--对接人-->
+
+		<!--项目状态-->
+		<td class="hidden-xs" align="center">
+			{$customer_status_need[$v.customer_status]}
+		</td>
+		<!--项目状态-->
+
+		<!--回款周期-->
+		<td class="hidden-xs" align="center">
+			{if condition="$v.customer_collection_period eq 0"} 无 {else/} {$customer_collection_period_need[$v.customer_collection_period]} {/if}
+		</td>
+		<!--回款周期-->
+
+		<!--合同周期-->
+		<td class="hidden-xs" align="center">
+			{if condition="$v.customer_contract_cycle eq 0"} 无 {else/} {$customer_contract_cycle_need[$v.customer_contract_cycle]} {/if}
+		</td>
+		<!--合同周期-->
+
+		<!--合同到期时间-->
+		<td class="hidden-xs" align="center">
+			{if condition="$v.customer_expiration_date eq 0"} 无 {else/} {$v.customer_expiration_date|date='Y-m-d',###} {/if}
+		</td>
+		<!--合同到期时间-->
+
+		<!--创建时间-->
+		<td class="hidden-xs">{$v.customer_time|date='Y-m-d',###}</td>
+		<!--创建时间-->
+
+		<!--操作区-->
+		<td>
+			<div class="hidden-sm hidden-xs action-buttons">
+				<a class="green " href="{:url('admin/customer/customer_edit',array('n_id'=>$v['n_id']))}" data-toggle="tooltip" title="修改">
+					<i class="ace-icon fa fa-pencil bigger-130"></i>
+				</a>
+				<a class="red confirm-rst-url-btn" data-info="你确定要删除到回收站吗？" href="{:url('admin/customer/customer_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" title="回收站" data-toggle="tooltip">
+					<i class="ace-icon fa fa-trash-o bigger-130"></i>
+				</a>
+			</div>
+
+			<div class="hidden-md hidden-lg">
+				<div class="inline position-relative">
+					<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+						<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+					</button>
+					<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+						<li>
+							<a href="{:url('admin/customer/customer_edit',array('n_id'=>$v['n_id']))}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="修改">
+								<span class="green">
+									<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="{:url('admin/customer/customer_del',array('n_id'=>$v['n_id'],'p'=>input('p',1)))}" data-info="你确定要删除到回收站吗？" class="tooltip-error confirm-rst-url-btn" data-rel="tooltip" title="回收站" data-original-title="回收站">
+								<span class="red">
+									<i class="ace-icon fa fa-trash-o bigger-120"></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</td>
+		<!--操作区-->
+
+	</tr>
+{/foreach}
+
+<tr>
+	<td align="left" class="hidden-xs center"><button id="btnsubmit" class="btn btn-white btn-yellow btn-sm hidden-xs">删</button> </td>
+	<td colspan="2" align="left"class="hidden-lg hidden-md hidden-sm">{$page}</td>
+	<td colspan="15" align="right" class="hidden-xs">{$page}</td>
+</tr>

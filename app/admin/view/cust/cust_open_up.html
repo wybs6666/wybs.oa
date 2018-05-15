@@ -1,0 +1,235 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+
+<style>
+	#main_table_content
+	{
+		width: 1500px;
+	}
+	th,td
+	{
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.detail_pdo{
+		/*width: 1650px;*/
+		/*height: 650px;*/
+		width: 1000px;
+		height: 450px;
+	}
+</style>
+
+<div class="page-content">
+
+	<!--echart 和 table-->
+	<div class="row">
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active">
+					<a data-toggle="tab" href="#alipay2">
+						近四月客户详情
+					</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#alipay1" onclick="alipay1();">
+						客户开拓总览
+					</a>
+				</li>
+			</ul>
+			<fieldset>
+				<div class="tab-content">
+
+					<div id="alipay1" class="tab-pane fade" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_22"></div>
+						{$pdo_22}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>自主开拓</th>
+									<th>营销客户</th>
+									<th>开拓总数</th>
+								</tr>
+								</thead>
+
+								<tbody>
+
+								{foreach name="data_one_table.0" item="v" key="k"}
+								<tr>
+									<td>{$k}</td>
+									<td>{$v}</td>
+									<td>{$data_one_table.1[$k]}</td>
+									<td>{$data_one_table.2[$k]}</td>
+								</tr>
+								{/foreach}
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<div id="alipay2" class="tab-pane fade in active" style="overflow-x: auto;">
+						<div class="detail_pdo" id="pdo_44"></div>
+						{$pdo_44}
+
+						<div class="col-sm-9 div_table" style="width: 1000px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+								<tr>
+									<th>月份</th>
+									<th>自主开拓</th>
+									<th>营销客户</th>
+									<th>开拓总数</th>
+								</tr>
+								</thead>
+
+								<tbody>
+
+								{foreach name="data_two_table.0" item="v" key="k"}
+								<tr>
+
+									<td>
+										<label class="form-label col-xs-3 text-right" style="width: 60%;">
+											<a class="green cust_communication_details_2"  href="{:url('admin/cust/cust_communication_details_2')}" data-id="{$k}"  title="沟通详情">
+												<span class="blue" >
+												{$k}
+												</span>
+											</a>
+										</label>
+									</td>
+									<td>{$v}</td>
+									<td>{$data_two_table.1[$k]}</td>
+									<td>{$data_two_table.2[$k]}</td>
+								</tr>
+								{/foreach}
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+
+			</fieldset>
+		</div>
+	</div>
+	<!--echart 和 table-->
+
+
+	<!--当月客户开拓情况-->
+	<div class="row" style="width: 1000px;">
+		<div>
+			<div class="widget-header_1">
+				<h5 class="widget-title bigger lighter sl-font14">
+					<span style="font-size:16px;color: #888888;font-weight: 600;" >当月客户开拓详情</span>
+				</h5>
+			</div>
+
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+				<tr>
+					<th>客户</th>
+					<th>所在公司</th>
+					<th>客户类型</th>
+					<th>跟进人</th>
+					<!--<th>跟进人</th>-->
+					<th>手机号</th>
+					<th>邮箱</th>
+					<th>创建者</th>
+					<th>创建时间</th>
+					<th>跟进详情/时间</th>
+				</tr>
+				</thead>
+
+				<tbody>
+				{foreach name="cust_list" item="v" key="k"}
+				<tr>
+					<td>{$v.cust_contact}</td>
+					<td>
+						{if condition = "$v.official_website neq null"}
+						<a href="{$v.official_website}" title="{$v.official_website}" target="_blank">{$v.company_id}</a>
+
+						{else/}
+						{$v.company_id}
+						<br>
+						<span style="color: blue;">公司网址未录入!</span>
+						{/if}
+					</td>
+					<td>{$v.cust_level}</td>
+					<td>
+						<label class="form-label col-xs-3 text-right" style="width: 70px;">
+							<a class="green cust_cust_belong"  href="{:url('admin/cust/cust_cust_belong')}" data-id="{$v.cust_belong}"  title="跟进人所跟进的项目">
+												<span class="blue" >
+												{$v.cust_belong1}
+												</span>
+							</a>
+						</label>
+					</td>
+					<!--<td>{$v.cust_belong}</td>-->
+					<td>{$v.cust_mobile}</td>
+					<td>{$v.cust_postal_code}</td>
+					<td>{$v.cust_auto}</td>
+					<td>{$v.cust_add_time|date='Y-m-d',###}</td>
+					<td>
+						<label class="form-label col-xs-3 text-right">
+							<a class="green cust_communication_details_2"  href="{:url('admin/cust/cust_communication_details_21')}" data-id="{$v.id}"  title="沟通详情">
+										<span class="blue">
+										<i class="ace-icon fa fa-file bigger-120"></i>
+										</span>
+							</a>
+						</label>/&nbsp;&nbsp;
+						{$v.cust_update_time|date='Y-m-d',###}
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--当月客户开拓情况-->
+
+	<!--详情展示-->
+	<div class="modal fade in" id="myModaledit1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-backdrop fade in" id="gbbb1" style="height: 100%;" ></div>
+			<input type="hidden" name="cust_id" id="edit_cust_id" value=""/>
+			<div class="modal-dialog" style=" width: 80%;">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<button type="button" class="btn btn-default"  id="gbb1" style="float: right;">
+							关闭
+						</button>
+					</div>
+					<div class="modal-body" id="back_payment_detail2" style="height: 600px;overflow-y :auto;">
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+	<div class="modal fade in" id="myModaledit21" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+		<div class="modal-backdrop fade in" id="gbbb_21" style="height: 100%;" ></div>
+			<div class="modal-dialog" style=" width: 80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn btn-default"  id="gbb1_back_payment_detail21" style="float: right;">
+							关闭
+						</button>
+					</div>
+					<div class="modal-body" id="back_payment_detail21" style="height: 600px;overflow-y :auto;">
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+
+	</div><!-- /.modal -->
+
+
+
+</div><!-- /.page-content -->
+
+{/block}
